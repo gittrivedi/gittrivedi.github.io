@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqua Buddy - Simplifying Aquaculture</title>
+    <style>
+        /* Base64 Icons & Patterns (Lightweight SVGs) */
+        :root {
+            --bg-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgMkwyIDdhMTAgMTAgMCAwIDAgMCAxMGwxMCA1IDEwLTVhMTAgMTAgMCAwIDAgMC0xMEwxMiAyWiIvPjwvc3ZnPg=='); 
+            --cart-icon: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSI5IiBjeT0iMjEiIHI9IjEiLz48Y2lyY2xlIGN4PSIyMCIgY3k9IjIxIiByPSIjMSIvPjxwYXRoIGQ9Ik0xIDEgaDRsMi42OCAxMy4zOWEyIDIgMCAwIDAgMiAxLjYxaDguNDZhMiAyIDAgMCAwIDItMS42MUwyMyA2SjYiLz48L3N2Zz4=');
+            --bg-pattern-fish: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAtODkiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMTU3LjUxNyAxMjcuODE1Ij48cGF0aCBmaWxsPSIjMDAtNzdiZSIgZmlsbC1vcGFjaXR5PSIuMDUiIGQ9Ik04MS4yOTcgMjkuODE4Yy0yMy4xMzQtNi4xNy00OC4zMDYtNC4wNzEtNTQuMjgzIDUuOTExLTIuNDI5IDQuMDc0LS4yNjcgOS40MyAyLjU3IDEzLjUzMSAxMy4xNjctMjAuNjAxIDUzLjIxMS0xMS41MDcgNjQuNjMgOS41NDQgNi4wNyAxMS4xOTQgMTQuNDggMjcuNzAxIDIxLjgzMSA0NC45MTMgNS4xOTYgMTIuMTU3IDEyLjc4OSAxNS45ODUgMTguNDg5IDkuOTQyIDEwLjcxMi0xMS4zNjEtMS4wMjItMTguMzg4LTEwLjM4My0zMi4yMzYtOC43OTctMTMuMDUzLTIxLjg3MS0yNS40NzgtMzUuNTE1LTI4LjA0NHpNMTIzLjk1NCA0Ny4zOTNjLTEwLjA4MSAyLjMzNy0xNy40NiA4LjY3OC0xNy45MzIgMTcuODU1LS40NzIgOS4xNzYgNS40OCAxNy40NiAxNC42NDEgMjEuOTY0IDkuMTYxIDQuNDkyIDE4Ljk1NCA2LjU5OSAyOC4wMzEgMi42NDcgNC44MTEtMi4wOTkgNC40MDMtNS4xOTYgNS45MTEtOC4wNi03LjQzOSAxMy44MDUtMjYuNzMyIDIyLjE3Ni00MC42NDkgMTcuMzg0LTE5LjUzNi02LjY5Mi0yMC4xNDMtMjEuMjUyLTI3LjY1My0zOS44NjktMy43NDUtOS4zNzQtMy41MjQtMTUuMTczIDYuMjE1LTE1LjQ1OCAxMS41OTEtLjMzNSA5Ljk5Ni01LjM2NSA3LjA4NC04LjUxNHpNMTQ1LjUyMyA3NS41NDhjLTMuOTM4IDEuNTUyLTYuODMxIDUuMjQyLTYuNzE0IDEwLjM0Mi4xMTggNS4xMDkgMi43NCA4Ljg5OCA2Ljc4NyAxMS4yMjkgNC4wNDkgMi4zMzEgOC4wMzIgMi45OTMgMTAuOTMyIDEuMTMyIDEuODQtMS4wMzEgMS42OTktMi42IDEuODI0LTR5MCAxLjk3My44NjIuNTA3LS42MzEtMy40NzgtMTEuODE5bTMuMzc0LTExLjg5N2MuMzMtMi4xOTYgMS40MTktNy4wNjcgMS41NDQtOS4yNjRtLS45NjggMTAuMjU3Yy0uOTgzIDIuMjY2LTIuMTM4IDQuODEtMy4wMzEgNy4xNDVtMS4wMjQtMy4xMjNjLTEuMDM1LTUuMTE2LTIuMjg2LTkuNjY4LTIuNTI5LTEwLjk1Nm0zLjAxOCAyLjY4OWMtMS45MDcgMS40MzgtMy42MjkgMy4zOTctNS4wOTcgNS41NThNMzAuNTU3IDExLjAyNUMxNi4wMzMgMTUuODE0IDEuMzcxIDM1LjkzMSAwIDYyLjIxNGM4LjIzMy0xMy4zMjIgMzUuNDEtMTYuMzEgNDIuMDMtOC40OTUgOS41NCAxMS4zMDEgMzUuNjc2IDQ0LjMzOCA1Ny45NTMgNTcuOTUzIDE5Ljg5MyAxMi4xNTUgMTUuOTA5LTUuNjcgMTAuNjM5LTE5LjI5NkM5NS43IDEwOC40NTYgODAuMDM0IDk2LjU1MyA3OC43NSA5MC43NjNjLS42MzktMi44OTQuNTY4LTguNTYyIDUuNTcxLTE0LjY0MSAxMy4yODUtMTUuOTkxIDE4LjE1My0yNC42MjQgMjAuOTExLTI4LjM5MyAxMC42MzktMTQuNzc4IDIuMjctMzkuMjUtOC44NjQtNTEuNzUzLTI0LjQ3MS0yNy41MTUtMTQuNTg4LTM3Ljg5Mi00OS40NTktMzAuOTU3eiIvPjwvc3ZnPg==');
+
+            /* Fixed External Image Links from Reliable Sources */
+            --img-goldfish: url('https://upload.wikimedia.org/wikipedia/commons/e/e9/Goldfish3.jpg');
+            --img-betta-male: url('https://upload.wikimedia.org/wikipedia/commons/1/11/Betta_splendens_-_male_in_aquarium.jpg');
+            --img-betta-female: url('https://upload.wikimedia.org/wikipedia/commons/a/a7/Siamese_fighting_fish_%28Betta_splendens%29_female_%2814329381521%29.jpg');
+            --img-feed-grow: url('https://upload.wikimedia.org/wikipedia/commons/2/22/Aquarium_fish_food.jpg');
+            --img-feed-fry: url('https://upload.wikimedia.org/wikipedia/commons/b/b3/Fish_flake_food.jpg');
+            --img-aquarium-kit: url('https://upload.wikimedia.org/wikipedia/commons/f/f6/Aquarium.jpg');
+        }
+
+        /* Basic Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f0f8ff;
+            background-image: var(--bg-pattern-fish);
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Bubble Animation */
+        @keyframes bubble {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        }
+
+        header, footer {
+            position: relative;
+            background-color: #0077be;
+            color: white;
+            text-align: center;
+            padding: 2.5em 1em;
+            overflow: hidden;
+        }
+
+        header::after, header::before {
+            content: '💧';
+            position: absolute;
+            bottom: -20px;
+            font-size: 1.5em;
+            opacity: 0;
+            animation: bubble 5s infinite;
+        }
+
+        header::after { left: 15%; animation-delay: 1s; }
+        header::before { left: 80%; animation-delay: 3s; font-size: 1.2em;}
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header h1::before {
+            content: '';
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-image: var(--bg-icon);
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        nav { margin-top: 1.5em; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1em; transition: opacity 0.3s;}
+        nav a:hover { opacity: 0.7; }
+
+        main {
+            padding: 2em;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 { border-bottom: 2px solid #00aaff; padding-bottom: 10px; margin-top: 1.5em; color: #00568a; }
+
+        section {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,119,190,0.1);
+            margin-bottom: 2.5em;
+        }
+
+        /* Services Section */
+        .calculator-tabs { display: flex; border-bottom: 1px solid #ddd; }
+        .tab-btn { background-color: #e0f2f1; border: none; outline: none; cursor: pointer; padding: 12px 24px; font-weight: bold; color: #555; transition: 0.3s; border-radius: 8px 8px 0 0; margin-right: 5px;}
+        .tab-btn:hover { background-color: #b2dfdb; }
+        .tab-btn.active { background-color: #fff; color: #0077be; border: 1px solid #ddd; border-bottom: 2px solid #fff; }
+
+        .tab-content { display: none; padding: 25px 20px; border: 1px solid #ddd; border-top: none; background-color: #fff; border-radius: 0 0 8px 8px; }
+        .tab-content.active { display: block; }
+
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input[type="number"] { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em;}
+        button.calc-btn { background-color: #009688; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: bold; transition: background 0.2s;}
+        button.calc-btn:hover { background-color: #00796b; }
+        .result { margin-top: 20px; font-weight: bold; padding: 15px; background-color: #e8f5e9; border-radius: 6px; border-left: 5px solid #4caf50;}
+
+        /* Expert Section */
+        .expert-block { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .payment-info { flex: 1; min-width: 280px; }
+        .chatbot-block { flex: 1; min-width: 280px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+        .chat-header { font-weight: bold; padding-bottom: 10px; border-bottom: 1px solid #eee; margin-bottom: 10px; color: #0077be; display: flex; align-items: center; gap: 8px;}
+        .chat-header::before { content: '🤖'; font-size: 1.2em;}
+        .chat-box { height: 220px; overflow-y: auto; margin-bottom: 10px; padding: 10px; background: white; border-radius: 4px; border: 1px solid #eee;}
+        .message { margin-bottom: 12px; font-size: 0.95em;}
+        .bot-message { color: #0077be; }
+        .user-message { color: #333; text-align: right; background-color: #e1f5fe; padding: 8px; border-radius: 8px; display: inline-block; float: right; clear: both;}
+
+        .pay-btn { background-color: #f44336; color: white; padding: 10px 18px; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px; font-weight: bold; transition: background 0.2s;}
+        .pay-btn:hover { background-color: #d32f2f; }
+        #image-upload-section, #doctor-contact-section { display: none; margin-top: 20px; padding: 20px; border: 2px dashed #00aaff; background-color: #fffde7; border-radius: 8px;}
+
+        /* E-commerce */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .product-card { border: 1px solid #eee; border-radius: 12px; padding: 20px; text-align: center; background-color: white; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between;}
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,119,190,0.15); border-color: #b3e5fc; }
+
+        .product-image-container { width: 100%; height: 160px; margin-bottom: 15px; border-radius: 8px; overflow: hidden; background-color: #e1f5fe; background-size: cover; background-position: center; border: 1px solid #eee;}
+        
+        .img-goldfish { background-image: var(--img-goldfish); }
+        .img-betta-male { background-image: var(--img-betta-male); }
+        .img-betta-female { background-image: var(--img-betta-female); }
+        .img-feed-grow { background-image: var(--img-feed-grow); }
+        .img-feed-fry { background-image: var(--img-feed-fry); }
+        .img-aquarium-kit { background-image: var(--img-aquarium-kit); }
+
+        .product-card h3 { margin: 10px 0; color: #333; font-size: 1.3em;}
+        .product-price { font-size: 1.3em; color: #e91e63; font-weight: bold; margin: 10px 0;}
+        .product-desc { font-size: 0.9em; color: #666; margin-bottom: 15px; flex-grow: 1;}
+
+        .add-to-cart { background-color: #0077be; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 1em; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s;}
+        .add-to-cart:hover { background-color: #00568a; }
+        .add-to-cart::before { content: ''; display: inline-block; width: 18px; height: 18px; background-image: var(--cart-icon); background-size: contain; filter: invert(1); }
+
+        /* Final Design End Page */
+        footer.aqua-end { background: linear-gradient(135deg, #0077be 0%, #00c853 100%); color: white; text-align: center; padding: 120px 20px; margin-top: 60px; border-top: none; }
+        .end-icon { font-size: 5em; margin-bottom: 25px; display: block; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));}
+        .end-text { font-size: 1.8em; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Aqua Buddy</h1>
+    <p>Simplifying Aquaculture for Everyone</p>
+    <nav>
+        <a href="#services">Calculators</a>
+        <a href="#experts">Fish Health</a>
+        <a href="#ecommerce">Shop</a>
+    </nav>
+</header>
+
+<main>
+
+    <section id="services">
+        <h2>Aquaculture Smart Calculators</h2>
+        <p style="color: #666; margin-bottom: 20px;">Use our web-integrated tools to optimize your farm management.</p>
+        <div class="calculator-tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'stockingTab')">Pond Stocking</button>
+            <button class="tab-btn" onclick="openTab(event, 'fertilizerTab')">Pond Fertilizer</button>
+        </div>
+
+        <div id="stockingTab" class="tab-content active">
+            <label for="pondAreaStocking">Pond Area (in Hectares):</label>
+            <input type="number" id="pondAreaStocking" placeholder="e.g., 0.5" step="0.01" min="0">
+            <button class="calc-btn" onclick="calculateStocking()">Calculate Stocking</button>
+            <div id="stockingResult" class="result" style="display:none;"></div>
+        </div>
+
+        <div id="fertilizerTab" class="tab-content">
+            <label for="pondAreaFertilizer">Pond Area (in Hectares):</label>
+            <input type="number" id="pondAreaFertilizer" placeholder="e.g., 1.2" step="0.01" min="0">
+            <button class="calc-btn" onclick="calculateFertilizer()">Calculate Requirements</button>
+            <div id="fertilizerResult" class="result" style="display:none;"></div>
+        </div>
+    </section>
+
+    <section id="experts">
+        <h2>Tele-Health Expert Connection</h2>
+        <div class="expert-block">
+            <div class="payment-info">
+                <p>Connect with certified fish health specialists instantly.</p>
+                <p>Consultation charge: <strong>RS 29</strong> per diagnostic call.</p>
+                <button class="pay-btn" onclick="simulatePayment()">Start Consultation (Pay RS 29)</button>
+            </div>
+            <div class="chatbot-block">
+                <div class="chat-header">Aqua Assistant - Barbie Bot</div>
+                <div class="chat-box" id="chatBox">
+                    <div class="message bot-message">Hello! I'm Barbie Bot, your first line of assistance. Complete the payment, and I will connect you with a specialized doctor.</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="image-upload-section">
+            <label for="diseaseImages">Payment confirmed! Please upload clear, high-resolution pictures of the diseased fishes for diagnosis:</label>
+            <input type="file" id="diseaseImages" multiple accept="image/*">
+            <p style="font-size:0.9em; color:#666; margin-top:5px;">You can upload multiple angles. High detail is required.</p>
+        </div>
+
+        <div id="doctor-contact-section">
+            <p><strong>Diagnosis Case Created. Expert Assigned:</strong></p>
+            <p style="font-size:1.1em; color:#00568a; margin: 10px 0;"><strong>Dr. A. K. Sharma</strong> (Fish Pathologist)</p>
+            <p><strong>Immediate Contact:</strong> +91 9876543210</p>
+            <p>A message has been sent to the doctor with your images. They will review and connect shortly.</p>
+            <p style="margin-top:15px; background-color: #e3f2fd; padding:15px; border-radius:6px; font-weight:bold; border-left: 5px solid #0077be;">Message: Any doctor prescribed medicines will be available in the e-commerce section of our website.</p>
+        </div>
+    </section>
+
+    <section id="ecommerce">
+        <h2>Aqua Shop - Quality Supplies</h2>
+        <div class="product-grid">
+            
+            <div class="product-card">
+                <div class="product-image-container img-goldfish"></div>
+                <h3>Classic Goldfish</h3>
+                <p class="product-desc">Healthy, active Ryukin and Fantail goldfish (approx. 3 inches). Perfect for community tanks or ponds.</p>
+                <p class="product-price">RS 20</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container img-betta-male"></div>
+                <h3>Male Betta (Show Grade)</h3>
+                <p class="product-desc">Vibrant Siamese Fighting Fish with large flowy fins. High-quality red and blue varieties available.</p>
+                <p class="product-price">RS 300</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+             <div class="product-card">
+                <div class="product-image-container img-betta-female"></div>
+                <h3>Female Betta</h3>
+                <p class="product-desc">Healthy female Betta fish (assorted colors). Generally less aggressive, suitable for sorority tanks.</p>
+                <p class="product-price">RS 200</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container img-feed-grow"></div>
+                <h3>OptiMax Grow Feed</h3>
+                <p class="product-desc">Balanced nutrition 4mm floating pellets by "AquaStart", formulated for rapid growth in carp and tilapia.</p>
+                <p class="product-price">RS 450 (10 Kg)</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container img-feed-fry"></div>
+                <h3>Finer-Fry Starter</h3>
+                <p class="product-desc">Micro-crumbles (0.5mm) by "NitroFeed" for spawn and small fry. High protein for critical early stages.</p>
+                <p class="product-price">RS 150 (1 Kg)</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container img-aquarium-kit"></div>
+                <h3>DIY Aquarium Kit</h3>
+                <p class="product-desc">Complete kit: 5mm thick glass panels, silicone sealant, and instructions to build a standard 24"x12"x16" rectangular aquarium.</p>
+                <p class="product-price">RS 1800</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+        </div>
+    </section>
+
+</main>
+
+<footer class="aqua-end">
+    <span class="end-icon">💧</span>
+    <p class="end-text">Aqua Buddy</p>
+    <p>Where Water Meets Wisdom.</p>
+    <p style="font-size:0.8em; color: rgba(255,255,255,0.7); margin-top:30px;">&copy; 2023 Aqua Buddy Platforms. All rights reserved.</p>
+</footer>
+
+<script>
+    // Tab switching logic
+    function openTab(evt, tabName) {
+        var i, tabContent, tabButtons;
+        tabContent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabContent.length; i++) {
+            tabContent[i].classList.remove("active");
+        }
+        tabButtons = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Calculations
+    function calculateStocking() {
+        var area = document.getElementById('pondAreaStocking').value;
+        var resultDiv = document.getElementById('stockingResult');
+        if (area > 0) {
+            var fetchedDensity = 6000; 
+            var totalStocking = area * fetchedDensity;
+            resultDiv.innerText = "Fetch Successful! For an area of " + area + " Hectares, the calculated recommended stocking density for fingerlings is " + totalStocking.toLocaleString() + ".";
+            resultDiv.style.display = 'block';
+            resultDiv.style.backgroundColor = '#e8f5e9';
+            resultDiv.style.borderLeftColor = '#4caf50';
+        } else {
+            resultDiv.innerText = "Error: Please enter a valid area in Hectares.";
+            resultDiv.style.display = 'block';
+            resultDiv.style.backgroundColor = '#ffecb3';
+            resultDiv.style.borderLeftColor = '#ffc107';
+        }
+    }
+
+    function calculateFertilizer() {
+        var area = document.getElementById('pondAreaFertilizer').value;
+        var resultDiv = document.getElementById('fertilizerResult');
+        if (area > 0) {
+            var standardUreaRate = 20; 
+            var totalUrea = area * standardUreaRate;
+            resultDiv.innerText = "Data Fetched! Initial Urea requirement for " + area + " Hectares is approximately " + totalUrea.toFixed(2) + " Kg.";
+            resultDiv.style.display = 'block';
+            resultDiv.style.backgroundColor = '#e8f5e9';
+            resultDiv.style.borderLeftColor = '#4caf50';
+        } else {
+            resultDiv.innerText = "Error: Please enter a valid area.";
+            resultDiv.style.display = 'block';
+            resultDiv.style.backgroundColor = '#ffecb3';
+            resultDiv.style.borderLeftColor = '#ffc107';
+        }
+    }
+
+    // Expert Consultation Simulation
+    function simulatePayment() {
+        var chatBox = document.getElementById('chatBox');
+        
+        chatBox.innerHTML += '<div class="message user-message">Initiating Payment of RS 29...</div>';
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        setTimeout(function() {
+            chatBox.innerHTML += '<div class="message bot-message">Payment of RS 29 verified successfully! I am now opening the diagnosis secure channel.</div>';
+            chatBox.scrollTop = chatBox.scrollHeight;
+            
+            setTimeout(function() {
+                chatBox.innerHTML += '<div class="message bot-message">Doctor Sharma is ready. Please follow the instructions below to upload clear pictures. We need high resolution to provide an accurate diagnosis. You may upload as many as you wish.</div>';
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                document.getElementById('image-upload-section').style.display = 'block';
+                document.getElementById('doctor-contact-section').style.display = 'block';
+                document.querySelector('.pay-btn').style.display = 'none';
+            }, 1000);
+
+        }, 1500);
+    }
+</script>
+
+</body>
+</html>
